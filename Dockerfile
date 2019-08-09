@@ -7,6 +7,7 @@ RUN set -ex; \
 		apt-get install -y --no-install-recommends \
 			gnupg \
 			dirmngr \
+			postfix \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
