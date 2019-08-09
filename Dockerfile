@@ -12,7 +12,9 @@ RUN set -ex; \
 			perl \
 			postgrey \
 			pflogsumm \
-			amavisd-new
+			amavisd-new \
+			rrdtool \
+			mailgraph \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
