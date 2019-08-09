@@ -8,6 +8,7 @@ RUN set -ex; \
 			gnupg \
 			dirmngr \
 			postfix \
+			nettools \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
