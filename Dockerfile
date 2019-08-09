@@ -8,7 +8,7 @@ RUN set -ex; \
 			gnupg \
 			dirmngr \
 			postfix \
-			nettools \
+			net-tools \
 			perl \
 			postgrey \
 			pflogsumm \
