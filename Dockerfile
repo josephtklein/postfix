@@ -12,6 +12,7 @@ RUN set -ex; \
 			perl \
 			postgrey \
 			pflogsumm \
+			amavisd-new
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
