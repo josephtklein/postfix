@@ -9,6 +9,7 @@ RUN set -ex; \
 			dirmngr \
 			postfix \
 			nettools \
+			perl \
 			postgrey \
 			pflogsumm \
 		; \
