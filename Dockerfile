@@ -9,6 +9,8 @@ RUN set -ex; \
 			dirmngr \
 			postfix \
 			nettools \
+			postgrey \
+			pflogsumm \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
