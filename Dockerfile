@@ -15,12 +15,12 @@ RUN set -ex; \
 # explicitly set user/group IDs
 #
 ENV GOSU_VERSION 1.11
-RUN set -x \
+RUN set -ex; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends ca-certificates wget; \
 	rm -rf /var/lib/apt/lists/*; \
 	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)"; \
-	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc"; \
+	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc)"; \
 	export GNUPGHOME="$(mktemp -d)"; \
 	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
 	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
@@ -33,7 +33,7 @@ RUN set -x \
 	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules
 # postfix
 RUN set -ex; \
-	echo "postfix postfix/main_mailer_type select smarthost" | chroot $rootfs debconf-set-selections \
-	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $rootfs debconf-set-selections \ 
-	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $rootfs debconf-set-selections \
+	echo "postfix postfix/main_mailer_type select smarthost" | chroot $rootfs debconf-set-selections; \
+	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $rootfs debconf-set-selections; \ 
+	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $rootfs debconf-set-selections; \
 	apt-get update && apt-get install -y --no-install-recommends postfix postgrey rrdtool mailgraph
