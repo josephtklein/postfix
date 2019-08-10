@@ -9,7 +9,7 @@ RUN set -ex; \
 			dirmngr \
 			postfix \
 			net-tools \
-			perl \
+			#perl \
 			postgrey \
 			pflogsumm \
 			amavisd-new \
