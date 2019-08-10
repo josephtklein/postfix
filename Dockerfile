@@ -7,7 +7,7 @@ RUN set -ex; \
 		apt-get install -y --no-install-recommends \
 			gnupg \
 			dirmngr \
-			apt-util \
+			apt-utils \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
