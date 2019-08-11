@@ -20,7 +20,7 @@ RUN set -ex; \
 ENV POSTFIX_CHROOT /var/spool/postfix
 RUN set -ex; \
 	# Build chroot
-	apt-get install binutils debootstrap; \
+	apt-get update && apt-get install -y --no-install-recommends binutils debootstrap; \
 	mkdir $POSTFIX_CHROOT; \
 	debootstrap --arch $(dpkg --print-architecture) stable-slim $POSTFIX_CHROOT http://deb.debian.org/debian; \
 	# Postfix configuration
