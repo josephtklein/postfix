@@ -17,10 +17,11 @@ RUN set -ex; \
 RUN set -ex; \
 	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules
 # postfix
+ENV POSTFIX_CHROOT /var/spool/postfix
 RUN set -ex; \
-	echo "postfix postfix/main_mailer_type select smarthost" | chroot $rootfs debconf-set-selections; \
-	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $rootfs debconf-set-selections; \ 
-	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $rootfs debconf-set-selections; \
+	echo "postfix postfix/main_mailer_type select smarthost" | chroot $POSTFIX_CHROOT debconf-set-selections; \
+	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \ 
+	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \
 	apt-get update && apt-get install -y --no-install-recommends postfix postgrey rrdtool mailgraph
 ENV GOSU_VERSION 1.11
 RUN set -ex; \
