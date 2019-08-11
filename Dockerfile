@@ -8,6 +8,7 @@ RUN set -ex; \
 			gnupg \
 			dirmngr \
 			apt-utils \
+			glusterfs-server \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
@@ -15,7 +16,13 @@ RUN set -ex; \
 # explicitly set user/group IDs
 #
 RUN set -ex; \
-	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules debconf-utils
+	apt-get update && apt-get install -y --no-install-recommends \
+		net-tools \
+		perl \
+		perl-modules \
+		debconf-utils \
+		apt-utils \
+		glusterfs-server
 # postfix
 ENV POSTFIX_CHROOT /var/spool/postfix
 RUN set -ex; \
