@@ -19,7 +19,11 @@ RUN set -ex; \
 # postfix
 ENV POSTFIX_CHROOT /var/spool/postfix
 RUN set -ex; \
-	mkdir /var/spool/postfix;\
+	# Build chroot
+	apt-get install binutils debootstrap; \
+	mkdir $POSTFIX_CHROOT; \
+	debootstrap --arch $(dpkg --print-architecture) stable-slim $POSTFIX_CHROOT http://deb.debian.org/debian; \
+	# Postfix configuration
 	echo "postfix postfix/main_mailer_type select smarthost" | chroot $POSTFIX_CHROOT debconf-set-selections; \
 	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \ 
 	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \
