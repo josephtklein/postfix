@@ -15,7 +15,7 @@ RUN set -ex; \
 # explicitly set user/group IDs
 #
 RUN set -ex; \
-	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules debconf
+	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules debconf-utils
 # postfix
 ENV POSTFIX_CHROOT /var/spool/postfix
 RUN set -ex; \
