@@ -14,6 +14,14 @@ RUN set -ex; \
 
 # explicitly set user/group IDs
 #
+RUN set -ex; \
+	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules
+# postfix
+RUN set -ex; \
+	echo "postfix postfix/main_mailer_type select smarthost" | chroot $rootfs debconf-set-selections; \
+	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $rootfs debconf-set-selections; \ 
+	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $rootfs debconf-set-selections; \
+	apt-get update && apt-get install -y --no-install-recommends postfix postgrey rrdtool mailgraph
 ENV GOSU_VERSION 1.11
 RUN set -ex; \
 	apt-get update; \
@@ -29,11 +37,3 @@ RUN set -ex; \
 	chmod +x /usr/local/bin/gosu; \
 	gosu nobody true; \
 	apt-get purge -y --auto-remove ca-certificates wget
-RUN set -ex; \
-	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules
-# postfix
-RUN set -ex; \
-	echo "postfix postfix/main_mailer_type select smarthost" | chroot $rootfs debconf-set-selections; \
-	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $rootfs debconf-set-selections; \ 
-	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $rootfs debconf-set-selections; \
-	apt-get update && apt-get install -y --no-install-recommends postfix postgrey rrdtool mailgraph
