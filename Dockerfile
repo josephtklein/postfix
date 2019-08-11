@@ -29,7 +29,7 @@ RUN set -ex; \
 	chmod +x /usr/local/bin/gosu; \
 	gosu nobody true; \
 	apt-get purge -y --auto-remove ca-certificates wget
-RUN set -x \
+RUN set -ex; \
 	apt-get update && apt-get install -y --no-install-recommends net-tools perl perl-modules
 # postfix
 RUN set -ex; \
