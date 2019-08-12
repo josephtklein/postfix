@@ -7,8 +7,6 @@ RUN set -ex; \
 		apt-get install -y --no-install-recommends \
 			gnupg \
 			dirmngr \
-			apt-utils \
-			glusterfs-server \
 		; \
 		rm -rf /var/lib/apt/lists/*; \
 	fi
@@ -16,29 +14,46 @@ RUN set -ex; \
 # explicitly set user/group IDs
 #
 RUN set -ex; \
-	apt-get update && apt-get install -y --no-install-recommends \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
 		net-tools \
 		perl \
 		perl-modules \
 		debconf-utils \
 		apt-utils \
-		glusterfs-server
+		glusterfs-server \
+		; \
+	rm -rf /var/lib/apt/lists/*; \
 # postfix
 ENV POSTFIX_CHROOT /var/spool/postfix
 RUN set -ex; \
 	# Build chroot
-	apt-get update && apt-get install -y --no-install-recommends binutils debootstrap; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		binutils \
+		debootstrap \
+		; \
+	rm -rf /var/lib/apt/lists/*; \
 	mkdir $POSTFIX_CHROOT; \
 	debootstrap --arch $(dpkg --print-architecture) stable $POSTFIX_CHROOT http://deb.debian.org/debian; \
 	# Postfix configuration
 	echo "postfix postfix/main_mailer_type select smarthost" | chroot $POSTFIX_CHROOT debconf-set-selections; \
 	echo "postfix postfix/mailname string $hostname.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \ 
 	echo "postfix postfix/relayhost string smtp.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \
-	apt-get update && apt-get install -y --no-install-recommends postfix postgrey rrdtool mailgraph
+	apt-get update && apt-get install -y --no-install-recommends \
+		postfix \
+		postgrey \
+		rrdtool \
+		mailgraph \
+		; \
+	rm -rf /var/lib/apt/lists/*; \
 ENV GOSU_VERSION 1.11
 RUN set -ex; \
 	apt-get update; \
-	apt-get install -y --no-install-recommends ca-certificates wget; \
+	apt-get install -y --no-install-recommends \
+		ca-certificates \
+		wget \
+		; \
 	rm -rf /var/lib/apt/lists/*; \
 	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)"; \
 	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc"; \
@@ -49,4 +64,7 @@ RUN set -ex; \
 	rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
 	chmod +x /usr/local/bin/gosu; \
 	gosu nobody true; \
-	apt-get purge -y --auto-remove ca-certificates wget
+	apt-get purge -y --auto-remove \
+		ca-certificates \
+		wget \
+		; \
