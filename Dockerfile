@@ -25,7 +25,7 @@ RUN set -ex; \
 		; \
 	rm -rf /var/lib/apt/lists/*
 # postfix
-ENV POSTFIX_CHROOT "/var/spool/postfix"
+# ENV POSTFIX_CHROOT "/var/spool/postfix"
 RUN set -ex; \
 	# Build chroot
 	apt-get update; \
@@ -34,9 +34,11 @@ RUN set -ex; \
 		debootstrap \
 		; \
 	rm -rf /var/lib/apt/lists/*; \
-	mkdir $POSTFIX_CHROOT; \
+	# mkdir $POSTFIX_CHROOT; \
 	debootstrap --arch $(dpkg --print-architecture) stable $POSTFIX_CHROOT http://deb.debian.org/debian; \
 	# Postfix configuration
+	debconf-set-selection <<<< "postfix postfix/mailname string your.hostname.com"; \
+	debconf-set-selection <<<< "postfix postfix/main_mailer_type string 'Internet Site'"; \
 	# echo "postfix postfix/main_mailer_type select smarthost" | chroot $POSTFIX_CHROOT debconf-set-selections; \
 	# echo "postfix postfix/mailname string $hostname.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \ 
 	# echo "postfix postfix/relayhost string smtp.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \
