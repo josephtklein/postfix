@@ -23,7 +23,7 @@ RUN set -ex; \
 		apt-utils \
 		glusterfs-server \
 		; \
-	rm -rf /var/lib/apt/lists/*; \
+	rm -rf /var/lib/apt/lists/*
 # postfix
 ENV POSTFIX_CHROOT "/var/spool/postfix"
 RUN set -ex; \
@@ -41,12 +41,12 @@ RUN set -ex; \
 	# echo "postfix postfix/mailname string $hostname.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \ 
 	# echo "postfix postfix/relayhost string smtp.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \
 	apt-get update && apt-get install -y --no-install-recommends \
-		# postfix \
-		# postgrey \
+		postfix \
+		postgrey \
 		rrdtool \
 		mailgraph \
 		; \
-	rm -rf /var/lib/apt/lists/*; \
+	rm -rf /var/lib/apt/lists/*
 ENV GOSU_VERSION 1.11
 RUN set -ex; \
 	apt-get update; \
@@ -66,5 +66,4 @@ RUN set -ex; \
 	gosu nobody true; \
 	apt-get purge -y --auto-remove \
 		ca-certificates \
-		wget \
-		; \
+		wget
