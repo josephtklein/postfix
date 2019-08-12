@@ -23,7 +23,8 @@ RUN set -ex; \
 		apt-utils \
 		glusterfs-server \
 		; \
-	rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/*; \
+	echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 # postfix
 # ENV POSTFIX_CHROOT "/var/spool/postfix"
 RUN set -ex; \
