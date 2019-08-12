@@ -1,4 +1,5 @@
 # vim:set ft=dockerfile:
+# Debian Postfix
 FROM debian:stable-slim
 
 RUN set -ex; \
