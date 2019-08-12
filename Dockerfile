@@ -25,7 +25,7 @@ RUN set -ex; \
 		; \
 	rm -rf /var/lib/apt/lists/*; \
 # postfix
-ENV POSTFIX_CHROOT /var/spool/postfix
+ENV POSTFIX_CHROOT "/var/spool/postfix"
 RUN set -ex; \
 	# Build chroot
 	apt-get update; \
