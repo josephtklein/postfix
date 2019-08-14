@@ -22,7 +22,15 @@ RUN set -ex; \
 		perl-modules \
 		debconf-utils \
 		apt-utils \
+		glusterfs-client \
+		glusterfs-common \
 		glusterfs-server \
+		libgfapi0 \
+		libgfchangelog0 \
+		libgfdb0 \
+		libgfrpc0 \
+		libgfxdr0 \
+		libglusterfs0 \
 		; \
 	rm -rf /var/lib/apt/lists/*; \
 	echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
