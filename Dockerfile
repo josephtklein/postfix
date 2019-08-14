@@ -21,7 +21,8 @@ RUN set -ex; \
 		perl \
 		perl-modules \
 		debconf-utils \
-		apt-utils \; \
+		apt-utils \
+		; \
 	rm -rf /var/lib/apt/lists/*; \
 #
 RUN set -ex; \
