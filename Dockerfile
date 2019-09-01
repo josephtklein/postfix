@@ -23,7 +23,7 @@ RUN set -ex; \
 		debconf-utils \
 		apt-utils \
 		; \
-	rm -rf /var/lib/apt/lists/*; \
+	rm -rf /var/lib/apt/lists/*
 #
 RUN set -ex; \
 	apt-get update; \
