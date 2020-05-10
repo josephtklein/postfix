@@ -1,5 +1,5 @@
 # vim:set ft=dockerfile:
-# Debian Postfix
+# Alpine Postfix
 FROM alpine:stable
 
 RUN set -ex; \
