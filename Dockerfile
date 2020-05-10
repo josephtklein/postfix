@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
 # Debian Postfix
-FROM debian:stable-slim
+FROM alpine:stable
 
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -22,6 +22,7 @@ RUN set -ex; \
 		perl-modules \
 		debconf-utils \
 		apt-utils \
+		vim \
 		; \
 	rm -rf /var/lib/apt/lists/*
 #
