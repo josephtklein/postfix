@@ -2,10 +2,14 @@
 # Alpine Postfix
 FROM alpine:stable
 
+RUN	apk update && \ 
+	apk upgrade && \
+	apk add --no-cache \
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
-		apt-get update; \
-		apt-get install -y --no-install-recommends \
+		apk update && \
+		apk upgrade && \
+		apk add --no-cache \
 			gnupg \
 			dirmngr \
 		; \
@@ -14,9 +18,10 @@ RUN set -ex; \
 
 # explicitly set user/group IDs
 #
-RUN set -ex; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
+RUN	set -ex; \
+	apk update && \
+	apk upgrade && \
+	apk add --no-cache \
 		net-tools \
 		perl \
 		perl-modules \
@@ -26,9 +31,10 @@ RUN set -ex; \
 		; \
 	rm -rf /var/lib/apt/lists/*
 #
-RUN set -ex; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
+RUN	set -ex; \
+	apk update && \
+	apk upgrade && \
+	apk add --no-cache \
 		glusterfs-client \
 		glusterfs-common \
 		glusterfs-server \
@@ -59,7 +65,9 @@ RUN set -ex; \
 	# echo "postfix postfix/main_mailer_type select smarthost" | chroot $POSTFIX_CHROOT debconf-set-selections; \
 	# echo "postfix postfix/mailname string $hostname.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \ 
 	# echo "postfix postfix/relayhost string smtp.localdomain" | chroot $POSTFIX_CHROOT debconf-set-selections; \
-	apt-get update && apt-get install -y --no-install-recommends \
+	apk update && \
+	apk upgrade && \
+	apk add --no-cache \ \
 		postfix \
 		postgrey \
 		rrdtool \
